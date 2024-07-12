@@ -5,61 +5,21 @@ import { AuthContext } from '../context/AuthContext';
 const Header = () => {
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [hoveredLink, setHoveredLink] = useState(null);
 
   const handleLogout = () => {
     logout();
     navigate('/login');
   };
 
-  const headerStyle = {
-    background: 'linear-gradient(to right, #6a11cb, #2575fc)', 
-    color: 'white',
-    textAlign: 'center',
-    fontFamily: 'Arial, sans-serif',
-    boxShadow: '0 4px 2px -2px gray',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '10px 20px',
-  };
-
-  const titleStyle = {
-    fontSize: '2em',
-    margin: '0',
-  };
-
-  const navStyle = {
-    display: 'flex',
-    gap: '15px',
-  };
-
-  const linkStyle = (isHovered) => ({
-    color: 'white',
-    textDecoration: 'none',
-    fontSize: '1em',
-    border: isHovered ? '2px solid white' : '2px solid transparent',
-    padding: '5px',
-    transition: 'border 0.3s ease',
-  });
-
-  const buttonStyle = (isHovered) => ({
-    ...linkStyle(isHovered),
-    background: 'none',
-    border: 'none',
-    cursor: 'pointer',
-    padding: '5px',
-  });
-
-  const [hoveredLink, setHoveredLink] = useState(null);
-
   return (
-    <header style={headerStyle}>
-      <h1 style={titleStyle}>Music Player</h1>
-      <nav style={navStyle}>
+    <header className="bg-gradient-to-r from-green-600 to-gray-600 text-white text-center shadow-md flex justify-between items-center p-4">
+      <h1 className="text-2xl font-bold">Music Player</h1>
+      <nav className="flex gap-4">
         {user ? (
           <button
             onClick={handleLogout}
-            style={buttonStyle(hoveredLink === 'logout')}
+            className={`text-white ${hoveredLink === 'logout' ? 'border-white' : 'border-transparent'} border-2 p-2 transition ease-in-out duration-300`}
             onMouseOver={() => setHoveredLink('logout')}
             onMouseOut={() => setHoveredLink(null)}
           >
@@ -69,7 +29,7 @@ const Header = () => {
           <>
             <Link
               to="/login"
-              style={linkStyle(hoveredLink === 'login')}
+              className={`text-white ${hoveredLink === 'login' ? 'border-white' : 'border-transparent'} border-2 p-2 transition ease-in-out duration-300`}
               onMouseOver={() => setHoveredLink('login')}
               onMouseOut={() => setHoveredLink(null)}
             >
@@ -77,7 +37,7 @@ const Header = () => {
             </Link>
             <Link
               to="/register"
-              style={linkStyle(hoveredLink === 'register')}
+              className={`text-white ${hoveredLink === 'register' ? 'border-white' : 'border-transparent'} border-2 p-2 transition ease-in-out duration-300`}
               onMouseOver={() => setHoveredLink('register')}
               onMouseOut={() => setHoveredLink(null)}
             >
